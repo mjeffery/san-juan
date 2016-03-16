@@ -3,7 +3,7 @@
 class GameState {
 
 	constructor(players, deck) {
-		this._players = [];
+		this._players = players;
 		this._deck = deck;
 		this._phaseId = 0;
 	}
@@ -18,7 +18,9 @@ class GameState {
 
 	nextPlayer(){}
 
-	serializeForPlayer(player) {
+	serializeForPlayer(id) {
+		let player = this._players.player(id);
+
 		return {
 			game: {
 				deck: this._deck.serializePublic()

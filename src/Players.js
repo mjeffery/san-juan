@@ -24,6 +24,7 @@ class Players {
 	}
 
 	add(player) {
+		var id = player._id;
 		var existing = this._players[id];
 		if(!!existing) { 
 			//TODO this is an error state? 

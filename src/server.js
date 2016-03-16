@@ -36,6 +36,13 @@ app.param('id', function(req, res, next){
 		});
 });*/
 
+app.get('/games/:id', (req, res) => {
+	let game = req.game;
+	let player = 1;
+
+	res.json(game.serializeForPlayer(player));
+});
+
 app.post('/games/:id', (req, res) => {
 	let game = req.game;
 	let msg = req.body;
