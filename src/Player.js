@@ -2,15 +2,20 @@
 
 class Player {
 
-	constructor() {
-		this.hand = [];
-		this.buildings = [];
+	constructor(deck) {
+		this._deck;
+		this._hand = [];
+		this._buildings = [];
+
 	}
 
 	build (card, payment) {
 
 	}
 
+	draw(){
+		this._hand.push(this._deck.draw());
+	}
 
 }
 

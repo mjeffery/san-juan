@@ -10,4 +10,4 @@ class RoleSelect extends Phase {
     }
 }
 
-module.exports = Phase;
+module.exports = RoleSelect;
