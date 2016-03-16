@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 
 function findGame(id) { return game }
 
-app.use(session({ secret: 'keyboard cat', cookie: { id: 'taco-buttplug' }}));
+app.use(session({ secret: 'keyboard cat', cookie: { id: 1 }}));
 
 app.param('id', (req, res, next, id) => {
 	findGame(id)
