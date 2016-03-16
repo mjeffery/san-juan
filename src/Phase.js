@@ -2,7 +2,7 @@
 
 class Phase {
 	onStart(state) { }
-	onMessage(state, msg) { }
+	onMessage(state, player, msg) { }
 }
 
 module.exports = Phase;
