@@ -1,11 +1,14 @@
 "use strict";
 
 class GameState {
+
 	constructor(players, deck) {
 		this._players = [];
 		this._deck = deck;
 		this._phaseId = 0;
 	}
+
+	get players() { return 
 
 	set phase(val) { this._phaseId = phase; }
 
