@@ -1,8 +1,10 @@
 "use strict";
+var shortid = require('shortid');
 
 class GameState {
 
 	constructor(players, deck) {
+		this._id = shortid.generate();
 		this._players = players;
 		this._deck = deck;
 		this._phaseId = 0;
@@ -12,9 +14,7 @@ class GameState {
 
 	set phase(val) { this._phaseId = phase; }
 
-	currentPlayer (){
-
-	}
+	currentPlayer (){}
 
 	nextPlayer(){}
 
@@ -28,6 +28,10 @@ class GameState {
 			hand: player._hand,
 			buildings: player._buildings
 		};
+	}
+
+	get id(){
+		return this._id;
 	}
 }
 

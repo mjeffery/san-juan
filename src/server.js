@@ -3,16 +3,13 @@
 var express = require('express');
 var session = require('express-session');
 var bodyParser = require('body-parser');
-var game = require('../test/GameMock')();
 
-var findPhase = require('./phases');
+var gamesRouter = require('./api/games');
 
 var app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-var findGame = (id) => { return game };
 
 app.use(session({
 	secret: 'keyboard cat',
@@ -22,53 +19,6 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-app.param('id', (req, res, next, id) => {
-	req.game = findGame(id);
-	next();
-});/*(req, res, next, id) => {
-	findGame(id)
-		.then((game) => {
-			req.game = game;
-			next();
-		})
-		.catch((err) => {
-			res.status(404);
-		});
-});*/
-
-app.get('/games/:id', (req, res) => {
-	let game = req.game;
-	let player = 1;
-
-	res.json(game.serializeForPlayer(player));
-});
-
-app.post('/games/:id', (req, res) => {
-	let game = req.game;
-	let msg = req.body;
-
-	let phaseId = game.phaseId;
-	let phase = findPhase(phaseId);
-	if(phase) {
-		phase.onMessage(game, req.session.playerId, msg);
-		
-		while(game.phaseId !== phaseId) {
-			phaseId = game.phaseId;
-			phase = findPhase(phaseId);
-			if(phase) {
-				phase.onStart(game);
-			}
-			else {
-				res.status(404);
-				break;
-			}
-		}
-
-		res.json(game.serializeForPlayer(req.session.playerId));
-	}
-	else {
-		res.status(500);
-	}
-});
+app.use('/api', gamesRouter);
 
 app.listen(3000);
