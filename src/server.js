@@ -14,9 +14,15 @@ app.use(bodyParser.json());
 
 function findGame(id) { return game }
 
-app.use(session({ secret: 'keyboard cat', cookie: { playerId: 1 }}));
+app.use(session({
+	secret: 'keyboard cat',
+	cookie: { playerId: 1 },
+	proxy: true,
+	resave: true,
+	saveUninitialized: true
+}));
 
-app.param('id', function(){
+app.param('id', function(req, res, next){
 	req.game = game;
 	next();
 });/*(req, res, next, id) => {
@@ -30,11 +36,7 @@ app.param('id', function(){
 		});
 });*/
 
-app.get('/games/:id', (req, res, next) => {
-	
-});
-
-app.post('/games/:id', (req, res, next) => {
+app.post('/games/:id', (req, res) => {
 	let game = req.game;
 	let msg = req.body;
 
@@ -54,8 +56,12 @@ app.post('/games/:id', (req, res, next) => {
 				break;
 			}
 		}
+
+		res.json(game.serializeForPlayer(req.session.playerId));
 	}
 	else {
 		res.status(500);
 	}
 });
+
+app.listen(3000);

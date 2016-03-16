@@ -1,5 +1,6 @@
 var GameState = require('../src/GameState');
 var Deck = require('../src/Deck');
+var Players = require('../src/Players');
 var Player = require('../src/Player');
 
 module.exports = function game(){

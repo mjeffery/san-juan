@@ -19,6 +19,10 @@ class Players {
 		return this._order.length; 
 	}
 
+	player(id) {
+		return this._players[id];
+	}
+
 	add(player) {
 		var existing = this._players[id];
 		if(!!existing) { 
