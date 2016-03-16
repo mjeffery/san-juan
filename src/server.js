@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express');
 var session = require('express-session');
 var bodyParser = require('body-parser');
@@ -14,16 +16,19 @@ function findGame(id) { return game }
 
 app.use(session({ secret: 'keyboard cat', cookie: { playerId: 1 }}));
 
-app.param('id', (req, res, next, id) => {
+app.param('id', function(){
+	req.game = game;
+	next();
+});/*(req, res, next, id) => {
 	findGame(id)
 		.then((game) => {
-			req.game = game; 
+			req.game = game;
 			next();
 		})
 		.catch((err) => {
-			res.status(404);	
+			res.status(404);
 		});
-});
+});*/
 
 app.get('/games/:id', (req, res, next) => {
 	

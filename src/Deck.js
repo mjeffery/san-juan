@@ -31,4 +31,4 @@ class Deck {
     }
 }
 
-module.exports = Card;
+module.exports = Deck;

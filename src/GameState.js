@@ -8,7 +8,7 @@ class GameState {
 		this._phaseId = 0;
 	}
 
-	get players() { return 
+	get players() { return }
 
 	set phase(val) { this._phaseId = phase; }
 
