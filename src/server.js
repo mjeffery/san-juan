@@ -12,7 +12,7 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-function findGame(id) { return game }
+var findGame = (id) => { return game };
 
 app.use(session({
 	secret: 'keyboard cat',
@@ -22,8 +22,8 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-app.param('id', function(req, res, next){
-	req.game = game;
+app.param('id', (req, res, next, id) => {
+	req.game = findGame(id);
 	next();
 });/*(req, res, next, id) => {
 	findGame(id)
