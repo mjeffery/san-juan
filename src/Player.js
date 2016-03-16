@@ -7,7 +7,6 @@ class Player {
 		this._deck = deck;
 		this._hand = [];
 		this._buildings = [];
-
 	}
 
 	build (card, payment) {
