@@ -1,6 +1,8 @@
 "use strict";
 
-class RoleSelectPhase {
+var Phase = require('../Phase');
+
+class RoleSelect extends Phase {
     onStart(state) { }
     onMessage(state, player, msg) {
 
