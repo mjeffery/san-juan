@@ -1,9 +1,19 @@
 var express = require('express');
+var session = require('express-session');
+var bodyParser = require('body-parser');
+var game = require('../test/GameMock')();
+
+
 var findPhase = require('./phases');
 
 var app = express();
 
-function findGame(id) { return {} };
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+function findGame(id) { return game }
+
+app.use(session({ secret: 'keyboard cat', cookie: { id: 'taco-buttplug' }}));
 
 app.param('id', (req, res, next, id) => {
 	findGame(id)

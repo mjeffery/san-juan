@@ -2,8 +2,9 @@
 
 class Player {
 
-	constructor(deck) {
-		this._deck;
+	constructor(id, deck) {
+		this._id = id;
+		this._deck = deck;
 		this._hand = [];
 		this._buildings = [];
 
@@ -17,6 +18,12 @@ class Player {
 		this._hand.push(this._deck.draw());
 	}
 
+	serializePublic(){
+		return {
+			cards: this.size(),
+			discard: this.discardSize()
+		};
+	}
 }
 
 module.exports = Player;

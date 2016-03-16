@@ -3,16 +3,31 @@ var shuffle = require('lodash').shuffle;
 
 class Deck {
     constructor() {
-        this._deck = [];
+        this._cards = [];
         this._discard = [];
     }
 
     draw(){
-        return _deck.pop();
+        return _cards.pop();
     }
 
     reset(){
-        this._deck = shuffle(Array.concat(this._deck, this._discard));
+        this._cards = shuffle(Array.concat(this._cards, this._discard));
+    }
+
+    size(){
+        return this._cards.length
+    }
+
+    discardSize(){
+        return this._discard.length
+    }
+
+    serializePublic(){
+        return {
+            cards: this.size(),
+                discard: this.discardSize()
+        };
     }
 }
 
