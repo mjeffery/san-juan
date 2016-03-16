@@ -1,9 +1,9 @@
 var express = require('express');
+var findPhase = require('./phases');
 
 var app = express();
 
 function findGame(id) { return {} };
-function findPhase(id) { return { function onMessage(msg, gameState) { } };
 
 app.param('id', (req, res, next, id) => {
 	findGame(id)
