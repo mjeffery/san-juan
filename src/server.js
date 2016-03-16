@@ -3,7 +3,6 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var game = require('../test/GameMock')();
 
-
 var findPhase = require('./phases');
 
 var app = express();
@@ -13,7 +12,7 @@ app.use(bodyParser.json());
 
 function findGame(id) { return game }
 
-app.use(session({ secret: 'keyboard cat', cookie: { id: 1 }}));
+app.use(session({ secret: 'keyboard cat', cookie: { playerId: 1 }}));
 
 app.param('id', (req, res, next, id) => {
 	findGame(id)
@@ -37,7 +36,7 @@ app.post('/games/:id', (req, res, next) => {
 	let phaseId = game.phaseId;
 	let phase = findPhase(phaseId);
 	if(phase) {
-		phase.onMessage(game, msg);
+		phase.onMessage(game, req.session.playerId, msg);
 		
 		while(game.phaseId !== phaseId) {
 			phaseId = game.phaseId;
