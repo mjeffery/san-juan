@@ -1,15 +1,24 @@
 'use strict';
 
+var path = require('path');
 var express = require('express');
 var session = require('express-session');
 var bodyParser = require('body-parser');
+var flash = require('connect-flash');
+
+var UserRepository = require('./UserRepository'); 
 
 var gamesRouter = require('./api/games');
+var usersRouter = require('./api/users');
 
 var app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(flash());
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
 app.use(session({
 	secret: 'keyboard cat',
@@ -19,6 +28,13 @@ app.use(session({
 	saveUninitialized: true
 }));
 
+var userRepo = new UserRepository();
+app.set('users', userRepo);
+
+userRepo.createUser({ username: 'mjeffery', password: 'mjeffery', email: 'mjeffery@example.com' });
+userRepo.createUser({ username: 'dnelson', password: 'dnelson', email: 'dnelson@example.com' });
+
 app.use('/api', gamesRouter);
+app.use(usersRouter);
 
 app.listen(3000);
