@@ -3,6 +3,9 @@
 let _ = require('lodash');
 let Player = require('./Player');
 
+/**
+ * @class
+ */
 class Players {
 	constructor() {
 		this._players = {};
@@ -44,6 +47,12 @@ class Players {
 
 	shuffle() {
 		this._order = _.shuffle(this._order);
+	}
+	
+	asJson() {
+		return Array.from(this, (player)=> {
+				return player.asJson()
+			})
 	}
 }
 

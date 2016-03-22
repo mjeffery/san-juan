@@ -2,9 +2,9 @@
 var shuffle = require('lodash').shuffle;
 
 class Deck {
-    constructor() {
-        this._cards = [];
-        this._discard = [];
+    constructor(objs) {
+        this._cards = objs.cards;
+        this._discard = objs.discard;
     }
 
     draw(){
@@ -36,6 +36,13 @@ class Deck {
         return {
             cards: this.size(),
                 discard: this.discardSize()
+        };
+    }
+    
+    asJson(){
+        return {
+            cards: this._cards,
+            discard: this._discard
         };
     }
 }
