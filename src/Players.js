@@ -27,7 +27,7 @@ class Players {
 	}
 
 	add(player) {
-		var id = player._id;
+		var id = player._userId;
 		var existing = this._players[id];
 		if(!!existing) { 
 			//TODO this is an error state? 
@@ -50,8 +50,8 @@ class Players {
 	}
 	
 	asJson() {
-		return Array.from(this, (player)=> {
-				return player.asJson()
+		return this._order.map( (id)=> {
+				return this._players[id].asJson()
 			})
 	}
 }

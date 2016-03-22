@@ -28,11 +28,11 @@ class Player {
 	}
 
 	asJson(){
-		json = (card) => {card.asJson()};
+		let json = (card) => {card.asJson()};
 		return {
 			userId : this._userId,
 			role: this._role,
-			hand : this._cards.map(json),
+			hand : this._hand.map(json),
 			buildings : this._buildings.map(json)
 		}
 	}

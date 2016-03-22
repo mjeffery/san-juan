@@ -40,9 +40,10 @@ class Deck {
     }
     
     asJson(){
+        let json = card => card.asJson();
         return {
-            cards: this._cards,
-            discard: this._discard
+            cards: this._cards.map(json),
+            discard: this._discard.map(json)
         };
     }
 }
