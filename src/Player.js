@@ -4,7 +4,7 @@ var shortid = require('shortid');
 class Player {
 
 	constructor(data, objs) {
-		this._id = data.id;
+		this._userId = data.userId;
 		this._role = data.role;
 		
 		this._deck = objs.deck;
@@ -30,7 +30,7 @@ class Player {
 	asJson(){
 		json = (card) => {card.asJson()};
 		return {
-			id : this._id,
+			userId : this._userId,
 			role: this._role,
 			hand : this._cards.map(json),
 			buildings : this._buildings.map(json)

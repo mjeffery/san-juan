@@ -15,7 +15,7 @@ let buildingSchema = new Schema({
 });
 
 let playerSchema = new Schema({
-	userId: { type: String },
+	userId: { type: Number },
 	username: { type: String },
 	hand: { type: [cardSchema] },
 	buildings: { type: [buildingSchema] },
@@ -23,6 +23,7 @@ let playerSchema = new Schema({
 });
 
 let gameSchema = new Schema({
+	id: { type: Number },
 	players: { type: [playerSchema] },
 	phaseId: { type: String },
 	deck: { type: [cardSchema] },
@@ -31,4 +32,4 @@ let gameSchema = new Schema({
 	roles: { type: Number }
 });
 
-module.exports = new mongoose.Model('Game', gameSchema);
+module.exports = mongoose.model('Game', gameSchema);
