@@ -4,6 +4,8 @@ var router = require('express').Router();
 var GameRepository = require('../GameRepository');
 var findPhase = require('../phases');
 
+var Game = require('../db/game');
+
 var gameRepo = new GameRepository();
 
 var game = gameRepo.create();
@@ -23,7 +25,7 @@ router.get('/games/:id', (req, res) => {
 });
 
 router.post('/games/:id', (req, res) => {
-    let game = req.game;
+    let gameState = req.game;
     let msg = req.body;
 
     let phaseId = game.phaseId;
@@ -43,7 +45,11 @@ router.post('/games/:id', (req, res) => {
             }
         }
 
-        res.json(game.serializeForPlayer(req.session.playerId));
+        game = new Game(gameState);
+
+        game.save(function(err){
+            res.json(game.serializeForPlayer(req.session.playerId));
+        });
     }
     else {
         res.status(500);
