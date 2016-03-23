@@ -2,7 +2,8 @@
 
 let router = require('express').Router();
 let Promise = require('bluebird');
-let bcrypt = Promise.promisifyAll(require('bcrypt-nodejs')); 
+let bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
+let Player = require('../Player');
 
 let isAuthenticated = require('../security/isAuthenticated');
 
@@ -23,9 +24,15 @@ router.get('/lobby', isAuthenticated(), (req, res) => {
 router.post('/join/:gameId', (req, res) => {
 	let gameRepo = req.app.get('games');
 
-	gameRepo.findGame(req.param('gameId')).then((game) => {
-		res.json({})
-	})
+	gameRepo.findGame(req.param('gameId'))
+		.then((game) => {
+			let player = new Player({userId: req.session.user.id});
+			game.players().add(player);
+			return game.save()
+		})
+		.then((game)=>{
+			res.json({game});
+		})
 });
 
 // END TEMPORARY
