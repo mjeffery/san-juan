@@ -5,7 +5,7 @@ class GameState {
 
 	constructor(data, objs) {
 		this._id = data.id;
-		this._phase = data.phase;
+		this._phaseId = data.phaseId;
 		this._players = objs.players;
 		this._deck = objs.deck;
 		this._tradingHouse = objs.tradingHouse;
@@ -38,7 +38,7 @@ class GameState {
 		
 		return {
 			id: this._id,
-			phase: this._phase,
+			phaseId: this._phaseId,
 			players: this._players.asJson(),
 			deck: deck.cards,
 			discard: deck.discard

@@ -14,5 +14,5 @@ module.exports = function game(){
     players.add(new Player({userId: 1, role: 1}, {deck: deck, hand: [new Card({name: 'card 1'})], buildings: []}));
     players.add(new Player({userId: 2, role: 2}, {deck: deck, hand: [new Card({name: 'card 1'})], buildings: []}));
     
-    return new GameState({id: null, phase: 0}, {players: players, deck: deck, tradingHouse: {}});
+    return new GameState({id: null, phaseId: 'waiting-for-players'}, {players: players, deck: deck, tradingHouse: {}});
 };

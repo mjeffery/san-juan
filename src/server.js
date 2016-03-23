@@ -6,10 +6,11 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var flash = require('connect-flash');
 
-var UserRepository = require('./UserRepository'); 
+var UserRepository = require('./UserRepository');
+var GameRepository = require('./GameRepository');
 
-var gamesRouter = require('./api/games');
-var usersRouter = require('./api/users');
+var gamesRouter = require('./routes/api/games');
+var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -30,6 +31,9 @@ app.use(session({
 
 var userRepo = new UserRepository();
 app.set('users', userRepo);
+
+var gameRepo = new GameRepository();
+app.set('games', gameRepo);
 
 userRepo.createUser({ username: 'mjeffery', password: 'mjeffery', email: 'mjeffery@example.com' });
 userRepo.createUser({ username: 'dnelson', password: 'dnelson', email: 'dnelson@example.com' });

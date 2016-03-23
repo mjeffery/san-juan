@@ -12,8 +12,21 @@ router.get('/', (req, res) => {
 });
 
 router.get('/lobby', isAuthenticated(), (req, res) => {
-	res.render('lobby', { user: req.session.user });	
-})
+	let gameRepo = req.app.get('games');
+
+	gameRepo.findGamesToJoin()
+		.then((games)=>{
+			res.render('lobby', { user: req.session.user, games: games});
+		});
+});
+
+router.post('/join/:gameId', (req, res) => {
+	let gameRepo = req.app.get('games');
+
+	gameRepo.findGame(req.param('gameId')).then((game) => {
+		res.json({})
+	})
+});
 
 // END TEMPORARY
 
@@ -22,7 +35,7 @@ router.get('/login', (req, res) => {
 		username: req.flash('username') || '',
 		error: req.flash('error') 
 	});
-})
+});
 
 router.post('/login', (req, res) => {
 	let userRepo = req.app.get('users');
