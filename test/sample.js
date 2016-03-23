@@ -3,7 +3,7 @@
 let Game = require('../src/db/game');
 
 let gameState = require('./GameMock')();
-let game = new Game(gameState);
+let game = new Game(gameState.asJson());
 
 console.log(gameState.asJson());
 
