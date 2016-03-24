@@ -23,12 +23,13 @@ router.get('/lobby', isAuthenticated(), (req, res) => {
 
 router.post('/join/:gameId', (req, res) => {
 	let gameRepo = req.app.get('games');
-
-	gameRepo.findGame(req.param('gameId'))
+	let id = req.param('gameId');
+	
+	gameRepo.findGame(id)
 		.then((game) => {
 			let player = new Player({userId: req.session.user.id});
 			game.players().add(player);
-			return game.save()
+			return gameRepo.save(id, game)
 		})
 		.then((game)=>{
 			res.json({game});

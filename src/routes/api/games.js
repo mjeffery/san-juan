@@ -24,6 +24,13 @@ router.get('/games/:id', (req, res) => {
     res.json(game.serializeForPlayer(player));
 });
 
+router.post('/games', (req, res)=>{
+   let gamesRepo = req.app.get('games');
+    gamesRepo.create().then((game)=>{
+       res.json(game); 
+    });
+});
+
 router.post('/games/:id', (req, res) => {
     let gameState = req.game;
     let msg = req.body;
@@ -47,7 +54,7 @@ router.post('/games/:id', (req, res) => {
 
         game = new Game(gameState);
 
-        game.save(function(err){
+        GameRepository.save(function(err){
             res.json(game.serializeForPlayer(req.session.playerId));
         });
     }

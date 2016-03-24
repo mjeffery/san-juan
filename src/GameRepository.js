@@ -18,8 +18,9 @@ class GameRepository {
 
 	create() {
 		let game = new Game(create().asJson());
-
-		return game.save();
+		
+		return game.save()
+			.then((game)=> new GameState());
 	}
 	
 	findGame(id) {
@@ -30,8 +31,8 @@ class GameRepository {
 			})
 	}
 
-	saveGame(id, gameState) {
-		return Game.findOneAndUpdate({_id: id}, new Game(gameState.asJson()), {overwrite: true});
+	save(id, gameState) {
+		return Game.findOneAndUpdate({_id: id}, new Game(gameState.asJson()), {overwrite: true}).exec();
 	}
 
 	findGamesToJoin (){
