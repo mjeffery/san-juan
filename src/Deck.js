@@ -48,4 +48,12 @@ class Deck {
     }
 }
 
+Deck.create = (obj) => {
+    let card = (card) => new Card(card);
+    let cards = obj.cards.map(card);
+    let discard = obj.discard.map(card);
+
+    return new Deck({cards, discard});
+};
+
 module.exports = Deck;

@@ -1,11 +1,14 @@
 "use strict";
 var shortid = require('shortid');
+var Deck = require('./Deck');
+var Players = require('./Players');
 
 class GameState {
 
 	constructor(data, objs) {
 		this._id = data.id;
 		this._phaseId = data.phaseId;
+		
 		this._players = objs.players;
 		this._deck = objs.deck;
 		this._tradingHouse = objs.tradingHouse;
@@ -45,5 +48,12 @@ class GameState {
 		}
 	}
 }
+
+GameState.create = (obj)=>{
+	let deck = Deck.create({cards: obj.deck, discard: obj.discard});
+	let players = Players.create({players: obj.players}, deck);
+	
+	return new GameState(obj, {deck, players});
+};
 
 module.exports = GameState;

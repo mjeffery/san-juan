@@ -1,5 +1,7 @@
 "use strict";
 var shortid = require('shortid');
+var Deck = require('./Deck');
+var Card = require('./Card');
 
 class Player {
 
@@ -37,5 +39,10 @@ class Player {
 		}
 	}
 }
+
+Player.create = (player, deck) => {
+	let hand = player.hand.map(Card.create);
+	return new Player(player, {deck, hand});
+};
 
 module.exports = Player;

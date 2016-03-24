@@ -5,8 +5,8 @@ var CardTypes = require('./cards/CardTypes');
 class Card {
 	
 	constructor(data) {
-		this._id = data.id;
-		this._name = data.name;
+		this._id = data._id;
+		this._name = CardTypes.type(data.type);
 	}
 
 	asJson(){
@@ -16,5 +16,9 @@ class Card {
 		}
 	}
 }
+
+Card.create=(card) => {
+	return new Card(card);	
+};
 
 module.exports = Card;

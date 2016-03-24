@@ -14,21 +14,6 @@ function create(){
 	return new GameState({id: null, phase: 0}, {players: players, deck: deck, tradingHouse: {}});
 }
 
-function build(game){
-	let card = (card) => new Card(card);
-	let cards = game.cards.map(card);
-	let discard = game.discard.map(card);
-
-	let deck = new Deck({cards: cards, discard: discard});
-	let players = new Players();
-
-	game.players.forEach((player) => {
-		players.add(new Player(player));
-	});
-
-	return new GameState(game, {players: players, deck: deck, tradingHouse: {}});
-}
-
 class GameRepository {
 
 	create() {
@@ -41,7 +26,7 @@ class GameRepository {
 		return Game.findOne({_id: id})
 			.exec()
 			.then((game)=>{
-				return build(game);
+				return GameState.create(game);
 			})
 	}
 
@@ -54,7 +39,7 @@ class GameRepository {
 			.find({phaseId:'waiting-for-players'})
 			.exec()
 			.then((game)=>{
-				return build(game);
+				return GameState.create(game);
 			})
 	}
 }

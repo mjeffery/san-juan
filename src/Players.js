@@ -56,4 +56,12 @@ class Players {
 	}
 }
 
+Players.create= (obj, deck)=>{
+	let players = new Players();
+	
+	obj.players.forEach((p)=>{players.add(Player.create(p, deck))});
+	
+	return players;
+};
+
 module.exports = Players;
