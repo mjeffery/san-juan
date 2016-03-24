@@ -1,6 +1,5 @@
 "use strict";
 var shortid = require('shortid');
-var Deck = require('./Deck');
 var Card = require('./Card');
 
 class Player {

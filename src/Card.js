@@ -6,7 +6,7 @@ class Card {
 	
 	constructor(data) {
 		this._id = data._id;
-		this._name = CardTypes.type(data.type);
+		this._name = CardTypes.card(data.type);
 	}
 
 	asJson(){
