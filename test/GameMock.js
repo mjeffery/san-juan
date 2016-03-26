@@ -1,11 +1,11 @@
 var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/myapp');
 
 var GameState = require('../src/GameState');
 var Deck = require('../src/Deck');
 var Players = require('../src/Players');
 var Player = require('../src/Player');
 var Card = require('../src/Card');
-mongoose.connect('mongodb://localhost/myapp');
 
 module.exports = function game(){
     var deck = new Deck({cards: [new Card({name: 'card 1'})], discard: [new Card({name: 'card 1'})]});

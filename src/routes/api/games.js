@@ -1,14 +1,9 @@
 'use strict';
 
 var router = require('express').Router();
-var GameRepository = require('../GameRepository');
-var findPhase = require('../phases');
+var findPhase = require('../../phases');
 
-var Game = require('../db/game');
-
-var gameRepo = new GameRepository();
-
-var game = gameRepo.create();
+var Game = require('../../db/game');
 
 router.param('id', (req, res, next, id) => {
     req.game = game; //gameRepo.findGame(id);
@@ -34,7 +29,7 @@ router.post('/games', (req, res)=>{
 router.post('/games/:id', (req, res) => {
     let gameState = req.game;
     let msg = req.body;
-
+    let gamesRepo = req.app.get('games');
     let phaseId = game.phaseId;
     let phase = findPhase(phaseId);
     if(phase) {
@@ -52,11 +47,10 @@ router.post('/games/:id', (req, res) => {
             }
         }
 
-        game = new Game(gameState);
-
-        GameRepository.save(function(err){
-            res.json(game.serializeForPlayer(req.session.playerId));
-        });
+        gamesRepo.save(gameState)
+            .then(function(err){
+                res.json(game.serializeForPlayer(req.session.playerId));
+            });
     }
     else {
         res.status(500);

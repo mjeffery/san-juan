@@ -3,5 +3,6 @@ extends ./layout.jade
 block content
 	h1 Welcome, #{user.username}
 	a(href='/logout') logout
-
-	div.games=JSON.stringify(games);
+	each game in games
+		div(id=game._id)
+			a(href='/join/'+ game._id)= game._id

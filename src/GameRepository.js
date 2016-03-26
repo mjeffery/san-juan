@@ -39,8 +39,8 @@ class GameRepository {
 		return Game
 			.find({phaseId:'waiting-for-players'})
 			.exec()
-			.then((game)=>{
-				return GameState.create(game);
+			.then((games)=>{
+				return games.map((game) => GameState.create(game));
 			})
 	}
 }

@@ -1,5 +1,8 @@
 'use strict';
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/myapp');
+
 var path = require('path');
 var express = require('express');
 var session = require('express-session');
@@ -32,11 +35,11 @@ app.use(session({
 var userRepo = new UserRepository();
 app.set('users', userRepo);
 
-var gameRepo = new GameRepository();
-app.set('games', gameRepo);
-
 userRepo.createUser({ username: 'mjeffery', password: 'mjeffery', email: 'mjeffery@example.com' });
 userRepo.createUser({ username: 'dnelson', password: 'dnelson', email: 'dnelson@example.com' });
+
+var gameRepo = new GameRepository();
+app.set('games', gameRepo);
 
 app.use('/api', gamesRouter);
 app.use(usersRouter);

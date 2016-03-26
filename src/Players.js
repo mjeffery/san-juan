@@ -7,7 +7,8 @@ let Player = require('./Player');
  * @class
  */
 class Players {
-	constructor() {
+	constructor(deck) {
+		this._deck = deck;
 		this._players = {};
 		this._order = [];
 	}
@@ -28,6 +29,7 @@ class Players {
 
 	add(player) {
 		var id = player._userId;
+		player._deck = this._deck;
 		var existing = this._players[id];
 		if(!!existing) { 
 			//TODO this is an error state? 
@@ -57,7 +59,7 @@ class Players {
 }
 
 Players.create= (obj, deck)=>{
-	let players = new Players();
+	let players = new Players(deck);
 	
 	obj.players.forEach((p)=>{players.add(Player.create(p, deck))});
 	

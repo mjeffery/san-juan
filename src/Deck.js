@@ -1,5 +1,6 @@
 "use strict";
 var shuffle = require('lodash').shuffle;
+var Card = require('./Card');
 
 class Deck {
     constructor(objs) {

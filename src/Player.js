@@ -16,6 +16,10 @@ class Player {
 	build (card, payment) {
 
 	}
+	
+	addPlayer(id){
+		players.addPlayer
+	}
 
 	draw(){
 		this._hand.push(this._deck.draw());
@@ -40,7 +44,7 @@ class Player {
 }
 
 Player.create = (player, deck) => {
-	let hand = player.hand.map(Card.create);
+	let hand = player.hand.map((card) => { if(card) return Card.create(card) });
 	return new Player(player, {deck, hand});
 };
 

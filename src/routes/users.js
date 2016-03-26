@@ -18,21 +18,26 @@ router.get('/lobby', isAuthenticated(), (req, res) => {
 	gameRepo.findGamesToJoin()
 		.then((games)=>{
 			res.render('lobby', { user: req.session.user, games: games});
-		});
+		})
+		.catch((err)=>{
+			res.send(err.stack)
+		})
 });
 
-router.post('/join/:gameId', (req, res) => {
+router.get('/join/:gameId', isAuthenticated(), (req, res) => {
 	let gameRepo = req.app.get('games');
 	let id = req.param('gameId');
 	
 	gameRepo.findGame(id)
 		.then((game) => {
-			let player = new Player({userId: req.session.user.id});
-			game.players().add(player);
+			
 			return gameRepo.save(id, game)
 		})
 		.then((game)=>{
 			res.json({game});
+		})
+		.catch((err) =>{
+			res.json(err.stack)
 		})
 });
 
